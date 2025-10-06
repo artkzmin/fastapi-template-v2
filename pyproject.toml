@@ -1,0 +1,52 @@
+[project]
+name = "fastapi-template-v2"
+version = "0.1.0"
+description = "FastAPI Application Template"
+readme = "README.md"
+requires-python = ">=3.11.9"
+dependencies = [
+    "alembic==1.16.5",
+    "asyncpg==0.30.0",
+    "fastapi-cache2==0.2.2",
+    "fastapi[standard]==0.118.0",
+    "opentelemetry-api==1.37.0",
+    "opentelemetry-instrumentation-fastapi==0.58b0",
+    "opentelemetry-instrumentation-logging==0.58b0",
+    "opentelemetry-sdk==1.37.0",
+    "pydantic-settings==2.11.0",
+    "redis==6.4.0",
+    "sqlalchemy==2.0.43",
+]
+
+[dependency-groups]
+dev = [
+    "black==25.9.0",
+    "coverage==7.10.7",
+    "mypy==1.18.2",
+    "pre-commit==4.3.0",
+    "pytest==8.4.2",
+    "pytest-asyncio==1.2.0",
+    "ruff==0.13.3",
+]
+
+[tool.ruff]
+target-version = "py311"
+line-length = 88
+src = ["src", "tests"]
+exclude = [".venv"]
+
+[tool.ruff.lint.isort]
+combine-as-imports = true
+force-single-line = false
+lines-between-types = 1
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "UP", "B", "C4", "SIM", "TID", "T20", "ARG", "COM812", "D204"]
+ignore = [
+    "E501"  # Conflicts with black
+]
+
+[tool.black]
+line-length = 88
+target-version = ["py311"]
+skip-string-normalization = false

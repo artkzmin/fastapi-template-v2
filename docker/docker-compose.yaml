@@ -1,0 +1,18 @@
+services:
+  fastapi-template:
+    container_name: 'fastapi-template-v2'
+    restart: unless-stopped
+    build:
+      context: ..
+      dockerfile: docker/Dockerfile
+    networks:
+      - fastapi-template-v2-network
+    volumes:
+      - /var/log/fastapi-template-v2/:/app/logs/
+
+networks:
+  fastapi-template-v2-network:
+    external: True
+
+volumes:
+  fastapi-template-v2-pgdata:

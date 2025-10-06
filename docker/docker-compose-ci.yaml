@@ -1,0 +1,13 @@
+services:
+  fastapi-template:
+    container_name: 'fastapi-template-v2'
+    image: fastapi-template-v2-image:latest
+    restart: unless-stopped
+    networks:
+      - fastapi-template-v2-network
+    volumes:
+      - /var/log/fastapi-template-v2/:/app/logs/
+
+networks:
+  fastapi-template-v2-network:
+    external: True
