@@ -11,3 +11,6 @@ services:
 networks:
   fastapi-template-v2-network:
     external: True
+
+volumes:
+  fastapi-template-v2-pgdata:
