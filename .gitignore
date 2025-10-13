@@ -18,5 +18,9 @@ venv/
 *.env
 
 # Logs
+logs/
 log/
 *.log
+
+# Static
+static/

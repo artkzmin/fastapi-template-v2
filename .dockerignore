@@ -1,0 +1,14 @@
+logs/
+docs/
+.venv/
+.vscode/
+.idea/
+.git/
+*__pycache__/
+.ruff_cache/
+.pytest_cache/
+*.pyc
+.gitignore
+.python-version
+*.dist
+*.md

@@ -16,7 +16,7 @@ repos:
     hooks:
       - id: mypy
         name: mypy
-        entry: mypy --config-file=./mypy.ini
+        entry: mypy --config-file=./pyproject.toml
         language: system
         types: [python]
         files: .

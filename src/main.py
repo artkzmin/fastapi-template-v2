@@ -1,7 +1,11 @@
+import os
 import sys
-import uvicorn
+
 from pathlib import Path
 
+import uvicorn
+
+os.environ["ENV_FILE_NAME"] = ".env"
 sys.path.append(str(Path(__file__).parent))
 
 from infra.config import settings

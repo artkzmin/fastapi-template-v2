@@ -84,4 +84,4 @@ def setup_logging() -> None:
     )
 
 
-logger_app = logging.getLogger("app")
+logger_app = logging.getLogger(settings.project.name)

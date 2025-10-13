@@ -14,7 +14,7 @@ class RedisManager:
         self.port: int = port
 
     async def __aenter__(self) -> "RedisManager":
-        logger.info(f"Connecting to Redis")
+        logger.info("Connecting to Redis")
         self.redis = redis.Redis(
             host=self.host,
             port=self.port,
@@ -30,7 +30,7 @@ class RedisManager:
     ) -> None:
         if self.redis:
             await self.redis.close()
-            logger.info(f"Disconnecting from Redis")
+            logger.info("Disconnecting from Redis")
 
     async def set(self, key: str, value: str, expire: int | None = None) -> None:
         await self.redis.set(key, value, ex=expire)

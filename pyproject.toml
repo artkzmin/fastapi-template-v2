@@ -1,11 +1,12 @@
 [project]
-name = "fastapi-template-v2"
+name = "fastapi-app"
 version = "0.1.0"
 description = "FastAPI Application Template"
 readme = "README.md"
 requires-python = ">=3.11.9"
 dependencies = [
     "alembic==1.16.5",
+    "asgi-lifespan>=2.1.0",
     "asyncpg==0.30.0",
     "fastapi-cache2==0.2.2",
     "fastapi[standard]==0.118.0",
@@ -29,24 +30,59 @@ dev = [
     "ruff==0.13.3",
 ]
 
+# --- Ruff
 [tool.ruff]
 target-version = "py311"
 line-length = 88
 src = ["src", "tests"]
 exclude = [".venv"]
-
 [tool.ruff.lint.isort]
 combine-as-imports = true
 force-single-line = false
 lines-between-types = 1
-
 [tool.ruff.lint]
 select = ["E", "F", "I", "UP", "B", "C4", "SIM", "TID", "T20", "ARG", "COM812", "D204"]
 ignore = [
     "E501"  # Conflicts with black
 ]
 
+# --- Black
 [tool.black]
 line-length = 88
 target-version = ["py311"]
 skip-string-normalization = false
+
+# --- Coverage
+[tool.coverage.run]
+source = ["src"]
+omit = [
+    "*/_run_request_middleware*",
+]
+[tool.coverage.report]
+show_missing = true
+skip_covered = true
+
+# --- Pytest
+[tool.pytest.ini_options]
+pythonpath = ["." , "src"]
+asyncio_mode = "auto"
+
+# --- Mypy
+[tool.mypy]
+python_version = "3.11"
+mypy_path = ["src", "tests"]
+
+explicit_package_bases = true
+check_untyped_defs = true
+disallow_untyped_defs = true
+disallow_any_generics = true
+strict_optional = true
+warn_redundant_casts = true
+warn_unused_ignores = true
+
+exclude = "(?x)(venv | legacy | build)"
+
+plugins = [
+    "pydantic.mypy",
+    "sqlalchemy.ext.mypy.plugin",
+]

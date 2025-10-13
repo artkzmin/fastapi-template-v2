@@ -1,0 +1,43 @@
+workflow:
+  rules:
+    - if: '$CI_COMMIT_BRANCH == "main"'
+    - if: '$CI_COMMIT_BRANCH == "dev"'
+
+stages:
+  - build
+  - lint
+  - migrations
+  - tests
+  - deploy
+
+build-job:
+  stage: build
+  before_script:
+    - cp ${ENV} config/.env
+  script:
+    - docker build --network host -f docker/Dockerfile -t ${CONFIG__PROJECT__NAME}-image .
+
+lint-job:
+  stage: lint
+  script:
+    - docker run --rm ${CONFIG__PROJECT__NAME}-image make lint
+
+tests-job:
+   stage: tests
+   script:
+     - docker run --rm --network ${CONFIG__PROJECT__NAME}-network ${CONFIG__PROJECT__NAME}-image make test
+
+migrations-job:
+  stage: migrations
+  script:
+    - docker run --rm --network ${CONFIG__PROJECT__NAME}-network ${CONFIG__PROJECT__NAME}-image make alembic
+  rules:
+    - if: '$CI_COMMIT_BRANCH == "main"'
+
+deploy-job:
+  stage: deploy
+  script:
+    - docker compose -f docker/docker-compose-ci.yml up --build -d
+    - docker image prune -f
+  rules:
+    - if: '$CI_COMMIT_BRANCH == "main"'

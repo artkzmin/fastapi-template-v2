@@ -3,24 +3,21 @@ import os
 from pathlib import Path
 from typing import Final
 
-from dotenv import load_dotenv
 from pydantic import BaseModel, field_validator
 from pydantic_settings import BaseSettings, SettingsConfigDict
 
 from infra.config.enums import ModeEnum
 
 BASE_DIR: Final = Path(__file__).parent.parent.parent.parent
-
-CONFIG_FILE_NAME: Final = os.getenv(f"{BASE_DIR.name}_CONFIG", ".env")
-
+CONFIG_FILE_NAME: Final = os.getenv("ENV_FILE_NAME", ".env")
 CONFIG_DIR: Final = BASE_DIR / "config"
-
 ENV_PATH: Final = CONFIG_DIR / CONFIG_FILE_NAME
-
-load_dotenv(ENV_PATH, override=True)
 
 
 class Settings(BaseSettings):
+    class ProjectSettings(BaseModel):
+        name: str
+
     class APISettings(BaseModel):
         port: int
 
@@ -67,6 +64,7 @@ class Settings(BaseSettings):
             return f"socks5://{self.user}:{self.password}@{self.host}:{self.port}"
 
     mode: ModeEnum
+    project: ProjectSettings
     api: APISettings
     db: DBSettings
     redis: RedisSettings

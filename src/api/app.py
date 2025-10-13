@@ -1,19 +1,17 @@
+from collections.abc import AsyncGenerator, Awaitable, Callable
 from contextlib import asynccontextmanager
-from typing import AsyncGenerator, Callable, Awaitable
 
 from fastapi import FastAPI, Request, Response
 from fastapi_cache import FastAPICache
 from fastapi_cache.backends.redis import RedisBackend
-
 from opentelemetry import trace
 from opentelemetry.instrumentation.fastapi import FastAPIInstrumentor
 from opentelemetry.instrumentation.logging import LoggingInstrumentor
-from opentelemetry.sdk.trace import TracerProvider
 from opentelemetry.sdk.resources import Resource
+from opentelemetry.sdk.trace import TracerProvider
 
 from infra.logger import logger_app
 from infra.redis.manager import redis_manager
-
 
 LoggingInstrumentor().instrument(set_logging_format=True)
 logger = logger_app.getChild(__name__)
@@ -37,8 +35,9 @@ FastAPIInstrumentor.instrument_app(app, tracer_provider=trace.get_tracer_provide
 
 @app.middleware("http")
 async def log_requests(
-    request: Request, call_next: Callable[[Request], Awaitable[Response]]
-):
+    request: Request,
+    call_next: Callable[[Request], Awaitable[Response]],
+) -> Response:
     logger.info(f"Request: {request.method} {request.url}")
     response = await call_next(request)
     logger.info(f"Response status: {response.status_code}")

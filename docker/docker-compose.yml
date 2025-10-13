@@ -1,0 +1,18 @@
+services:
+  UNSET__CONFIG__PROJECT__NAME:
+    container_name: UNSET__CONFIG__PROJECT__NAME
+    restart: unless-stopped
+    build:
+      context: ..
+      dockerfile: docker/Dockerfile
+    networks:
+      - UNSET__CONFIG__PROJECT__NAME-network
+    volumes:
+      - /var/log/UNSET__CONFIG__PROJECT__NAME/:/app/logs/
+
+networks:
+  UNSET__CONFIG__PROJECT__NAME-network:
+    external: True
+
+volumes:
+  UNSET__CONFIG__PROJECT__NAME-pgdata:
