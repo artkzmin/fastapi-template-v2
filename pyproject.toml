@@ -3,7 +3,7 @@ name = "fastapi-app"
 version = "0.1.0"
 description = "FastAPI Application Template"
 readme = "README.md"
-requires-python = ">=3.11.9"
+requires-python = "==3.11.9"
 dependencies = [
     "alembic==1.17.0",
     "asgi-lifespan==2.1.0",

@@ -15,3 +15,5 @@ test:
 	pytest -v -s
 cloc:
 	git ls-files | xargs cloc
+sync:
+	uv sync
