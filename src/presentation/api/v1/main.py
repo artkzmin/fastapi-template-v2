@@ -13,7 +13,7 @@ from opentelemetry.sdk.resources import Resource
 from opentelemetry.sdk.trace import TracerProvider
 
 from config import settings
-from infra.redis.manager import redis_manager
+from infra.redis import redis_manager
 from logger import logger_app
 
 LoggingInstrumentor().instrument(set_logging_format=True)
@@ -48,4 +48,10 @@ async def log_requests(
 
 
 def main() -> None:
-    uvicorn.run("presentation.api.v1.app:app", host="0.0.0.0", port=settings.api.port)
+    uvicorn.run(
+        "presentation.api.v1.main:app",
+        host="0.0.0.0",
+        port=settings.api.port,
+        workers=settings.api.workers,
+        reload=settings.is_local,
+    )

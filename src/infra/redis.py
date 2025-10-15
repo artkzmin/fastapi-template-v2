@@ -1,6 +1,6 @@
 from typing import Self
 
-import redis.asyncio as redis
+from redis.asyncio import Redis
 
 from config import settings
 from logger import logger_app
@@ -9,18 +9,16 @@ logger = logger_app.getChild(__name__)
 
 
 class RedisManager:
-    redis: redis.Redis
+    redis: Redis
 
-    def __init__(self, host: str, port: int) -> None:
-        self.host: str = host
-        self.port: int = port
+    def __init__(self, host: str, port: int, password: str) -> None:
+        self._host: str = host
+        self._port: int = port
+        self._password: str = password
 
     async def __aenter__(self) -> Self:
         logger.info("Connecting to Redis")
-        self.redis = redis.Redis(
-            host=self.host,
-            port=self.port,
-        )
+        self.redis = Redis(host=self._host, port=self._port, password=self._password)
         await self.redis.ping()
         return self
 
@@ -47,4 +45,5 @@ class RedisManager:
 redis_manager: RedisManager = RedisManager(
     host=settings.redis.host,
     port=settings.redis.port,
+    password=settings.redis.password,
 )

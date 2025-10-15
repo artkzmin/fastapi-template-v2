@@ -31,6 +31,7 @@ class Settings(BaseSettings):
 
     class APISettings(BaseModel):
         port: int
+        workers: int
 
     class DBSettings(BaseModel):
         host: str
@@ -46,6 +47,7 @@ class Settings(BaseSettings):
     class RedisSettings(BaseModel):
         host: str
         port: int
+        password: str
 
     class LogsSettings(BaseModel):
         dir_path: Path
@@ -73,6 +75,22 @@ class Settings(BaseSettings):
             if not self.is_configured():
                 return None
             return f"socks5://{self.user}:{self.password}@{self.host}:{self.port}"
+
+    @property
+    def is_local(self) -> bool:
+        return self.mode == SettingsModeEnum.LOCAL
+
+    @property
+    def is_test(self) -> bool:
+        return self.mode == SettingsModeEnum.TEST
+
+    @property
+    def is_prod(self) -> bool:
+        return self.mode == SettingsModeEnum.PROD
+
+    @property
+    def is_dev(self) -> bool:
+        return self.mode == SettingsModeEnum.DEV
 
     mode: SettingsModeEnum
     service: SettingsServiceEnum

@@ -12,12 +12,10 @@ from httpx import ASGITransport, AsyncClient
 
 os.environ["ENV_FILE_NAME"] = ".test.env"
 
-from config import SettingsModeEnum, settings
-from infra.db import engine_null_pool, session_maker_null_pool
-from persistence.models.base import BaseModel
+from infra.db import session_maker_null_pool
 from persistence.utils import DBManager, import_models
-from presentation.api.v1.main import app
 from presentation.api.v1.dependencies.db import get_db
+from presentation.api.v1.main import app
 
 import_models()
 
@@ -25,11 +23,6 @@ mock.patch(
     "fastapi_cache.decorator.cache",
     lambda *args, **kwargs: lambda f: f,  # noqa: ARG005
 ).start()
-
-
-@pytest.fixture(scope="session", autouse=True)
-async def check_test_mode() -> None:
-    assert settings.mode == SettingsModeEnum.TEST
 
 
 async def get_db_null_pool() -> AsyncGenerator[DBManager, None]:
@@ -52,10 +45,3 @@ async def ac() -> AsyncGenerator[AsyncClient, None]:
         transport = ASGITransport(app)
         async with AsyncClient(transport=transport, base_url="http://test") as ac:
             yield ac
-
-
-@pytest.fixture(scope="session", autouse=True)
-async def setup_database(check_test_mode: None) -> None:  # noqa: ARG001
-    async with engine_null_pool.begin() as conn:
-        await conn.run_sync(BaseModel.metadata.drop_all)
-        await conn.run_sync(BaseModel.metadata.create_all)

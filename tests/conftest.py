@@ -10,7 +10,7 @@ os.environ["ENV_FILE_NAME"] = ".test.env"
 
 from app.db import DBManager
 from app.setup import setup_app
-from config import SettingsModeEnum, settings
+from config import settings
 from infra.db import engine_null_pool, session_maker_null_pool
 from persistence.models.base import BaseModel
 from persistence.utils import import_models
@@ -21,7 +21,7 @@ import_models()
 
 @pytest.fixture(scope="session", autouse=True)
 async def check_test_mode() -> None:
-    assert settings.mode == SettingsModeEnum.TEST
+    assert settings.is_test
 
 
 async def get_db_null_pool() -> AsyncGenerator[DBManager, None]:

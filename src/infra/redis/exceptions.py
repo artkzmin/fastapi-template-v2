@@ -1,2 +1,0 @@
-class RedisRuntimeError(RuntimeError):
-    pass
