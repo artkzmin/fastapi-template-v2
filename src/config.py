@@ -1,17 +1,28 @@
 import os
 
+from enum import StrEnum
 from pathlib import Path
 from typing import Final
 
 from pydantic import BaseModel, field_validator
 from pydantic_settings import BaseSettings, SettingsConfigDict
 
-from infra.config.enums import ModeEnum
-
-BASE_DIR: Final = Path(__file__).parent.parent.parent.parent
+BASE_DIR: Final = Path(__file__).parent.parent
 CONFIG_FILE_NAME: Final = os.getenv("ENV_FILE_NAME", ".env")
 CONFIG_DIR: Final = BASE_DIR / "config"
 ENV_PATH: Final = CONFIG_DIR / CONFIG_FILE_NAME
+
+
+class SettingsModeEnum(StrEnum):
+    TEST = "TEST"
+    LOCAL = "LOCAL"
+    DEV = "DEV"
+    PROD = "PROD"
+
+
+class SettingsServiceEnum(StrEnum):
+    API_V1 = "API_V1"
+    CLI = "CLI"
 
 
 class Settings(BaseSettings):
@@ -63,7 +74,8 @@ class Settings(BaseSettings):
                 return None
             return f"socks5://{self.user}:{self.password}@{self.host}:{self.port}"
 
-    mode: ModeEnum
+    mode: SettingsModeEnum
+    service: SettingsServiceEnum
     project: ProjectSettings
     api: APISettings
     db: DBSettings
@@ -75,8 +87,7 @@ class Settings(BaseSettings):
     model_config = SettingsConfigDict(
         env_file=ENV_PATH,
         case_sensitive=False,
-        env_nested_delimiter="__",
-        env_prefix="CONFIG__",
+        env_nested_delimiter=".",
     )
 
 

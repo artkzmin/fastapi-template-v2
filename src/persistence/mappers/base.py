@@ -2,7 +2,7 @@ from typing import Generic, TypeVar
 
 from pydantic import BaseModel as PydanticBaseModel
 
-from infra.db.base import BaseModel
+from persistence.models.base import BaseModel
 
 ModelType = TypeVar("ModelType", bound=BaseModel)
 EntityType = TypeVar("EntityType", bound=PydanticBaseModel)

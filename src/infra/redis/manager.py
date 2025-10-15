@@ -1,7 +1,9 @@
+from typing import Self
+
 import redis.asyncio as redis
 
-from infra.config import settings
-from infra.logger import logger_app
+from config import settings
+from logger import logger_app
 
 logger = logger_app.getChild(__name__)
 
@@ -13,7 +15,7 @@ class RedisManager:
         self.host: str = host
         self.port: int = port
 
-    async def __aenter__(self) -> "RedisManager":
+    async def __aenter__(self) -> Self:
         logger.info("Connecting to Redis")
         self.redis = redis.Redis(
             host=self.host,

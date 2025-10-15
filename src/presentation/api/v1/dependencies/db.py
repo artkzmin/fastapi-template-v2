@@ -3,12 +3,7 @@ from typing import Annotated
 
 from fastapi import Depends
 
-from infra.db.engine import session_maker
-from persistence.utils import DBManager
-
-
-def get_db_manager() -> DBManager:
-    return DBManager(session_factory=session_maker)
+from app.db import DBManager, get_db_manager
 
 
 async def get_db() -> AsyncGenerator[DBManager, None]:

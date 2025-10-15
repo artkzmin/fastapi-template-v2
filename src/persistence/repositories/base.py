@@ -5,8 +5,8 @@ from pydantic import BaseModel as PydanticBaseModel
 from sqlalchemy import delete, insert, select, update
 from sqlalchemy.ext.asyncio import AsyncSession
 
-from infra.db.base import BaseModel
 from persistence.mappers.base import BaseMapper
+from persistence.models.base import BaseModel
 
 ModelType = TypeVar("ModelType", bound=BaseModel)
 EntityType = TypeVar("EntityType", bound=PydanticBaseModel)

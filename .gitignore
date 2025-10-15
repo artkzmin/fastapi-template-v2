@@ -24,3 +24,6 @@ log/
 
 # Static
 static/
+
+# Coverage
+.coverage

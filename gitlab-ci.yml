@@ -15,22 +15,22 @@ build-job:
   before_script:
     - cp ${ENV} config/.env
   script:
-    - docker build --network host -f docker/Dockerfile -t ${CONFIG__PROJECT__NAME}-image .
+    - docker build --network host -f docker/Dockerfile -t ${PROJECT.NAME}-image .
 
 lint-job:
   stage: lint
   script:
-    - docker run --rm ${CONFIG__PROJECT__NAME}-image make lint
+    - docker run --rm ${PROJECT.NAME}-image make lint
 
 tests-job:
    stage: tests
    script:
-     - docker run --rm --network ${CONFIG__PROJECT__NAME}-network ${CONFIG__PROJECT__NAME}-image make test
+     - docker run --rm --network ${PROJECT.NAME}-network ${PROJECT.NAME}-image make test
 
 migrations-job:
   stage: migrations
   script:
-    - docker run --rm --network ${CONFIG__PROJECT__NAME}-network ${CONFIG__PROJECT__NAME}-image make alembic
+    - docker run --rm --network ${PROJECT.NAME}-network ${PROJECT.NAME}-image make alembic
   rules:
     - if: '$CI_COMMIT_BRANCH == "main"'
 

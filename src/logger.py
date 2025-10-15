@@ -2,7 +2,7 @@ import logging
 
 from logging.config import dictConfig
 
-from infra.config import settings
+from config import settings
 
 
 def setup_logging() -> None:

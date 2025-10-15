@@ -8,5 +8,5 @@ docker system prune -a --volumes
 ## Создание сети для Docker контейнеров
 ```bash
 . config/.env
-docker network create ${CONFIG__PROJECT__NAME}-network
+docker network create ${PROJECT.NAME}-network
 ```

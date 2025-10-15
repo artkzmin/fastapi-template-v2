@@ -23,8 +23,13 @@ docker run --rm -it \
 ```bash
 sudo vim /srv/gitlab-runner/config/config.toml
 ```
-Изменяем `volumes = ["/cache"]` на(заменить `CONFIG__PROJECT__NAME` на название проекта
+Изменяем `volumes = ["/cache"]` на(заменить `PROJECT.NAME` на название проекта
 из файла с переменными окружения в директории [config](../config)):
 ```bash
-volumes = ["/var/run/docker.sock:/var/run/docker.sock", "/cache", "/var/log/CONFIG__PROJECT__NAME/:/var/log/clear-talk/"]
+volumes = ["/var/run/docker.sock:/var/run/docker.sock", "/cache", "/var/log/PROJECT.NAME/:/var/log/clear-talk/"]
 ```
+
+## Переменные окружения
+Через CI/CD variables в Gitlab нужно задать переменные окружения:
+- `ENV` - как файл, содержимое аналогично [файлу](../config/.env.dist);
+- `PROJECT.NAME` - обычная переменная, название проекта.

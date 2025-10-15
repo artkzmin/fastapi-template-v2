@@ -1,6 +1,8 @@
 from collections.abc import AsyncGenerator, Awaitable, Callable
 from contextlib import asynccontextmanager
 
+import uvicorn
+
 from fastapi import FastAPI, Request, Response
 from fastapi_cache import FastAPICache
 from fastapi_cache.backends.redis import RedisBackend
@@ -10,13 +12,14 @@ from opentelemetry.instrumentation.logging import LoggingInstrumentor
 from opentelemetry.sdk.resources import Resource
 from opentelemetry.sdk.trace import TracerProvider
 
-from infra.logger import logger_app
+from config import settings
 from infra.redis.manager import redis_manager
+from logger import logger_app
 
 LoggingInstrumentor().instrument(set_logging_format=True)
 logger = logger_app.getChild(__name__)
 
-resource = Resource(attributes={"service.name": "app"})
+resource = Resource(attributes={"service.name": settings.project.name})
 trace.set_tracer_provider(TracerProvider(resource=resource))
 tracer = trace.get_tracer(__name__)
 
@@ -42,3 +45,7 @@ async def log_requests(
     response = await call_next(request)
     logger.info(f"Response status: {response.status_code}")
     return response
+
+
+def main() -> None:
+    uvicorn.run("presentation.api.v1.app:app", host="0.0.0.0", port=settings.api.port)
