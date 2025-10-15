@@ -1,4 +1,4 @@
-PROJECT_VERSION := $(shell cli/get_project_version.sh)
+PROJECT_VERSION := $(shell chmod +x cli/get_project_version.sh; cli/get_project_version.sh)
 
 run:
 	uv run python -m src.main
@@ -21,7 +21,4 @@ sync:
 	uv sync
 set-project-name:
 	chmod +x cli/set_project_name.sh
-	./cli/set_project_name.sh
-init:
-	chmod +x cli/set_project_name.sh
-	chmod +x cli/get_project_version.sh
+	cli/set_project_name.sh
