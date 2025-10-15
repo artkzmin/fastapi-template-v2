@@ -67,12 +67,12 @@ class Settings(BaseSettings):
         user: str
         password: str
 
-        def is_configured(self) -> bool:
+        def _is_configured(self) -> bool:
             return all([self.host, self.port, self.user, self.password])
 
         @property
-        def socks5(self) -> str | None:
-            if not self.is_configured():
+        def url(self) -> str | None:
+            if not self._is_configured():
                 return None
             return f"socks5://{self.user}:{self.password}@{self.host}:{self.port}"
 

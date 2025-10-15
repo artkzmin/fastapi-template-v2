@@ -19,6 +19,8 @@ cloc:
 	git ls-files | xargs cloc
 sync:
 	uv sync
+lock:
+	uv lock
 set-project-name:
 	chmod +x cli/set_project_name.sh
 	cli/set_project_name.sh
