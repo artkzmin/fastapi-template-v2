@@ -23,7 +23,7 @@ docker run --rm -it \
 ```bash
 sudo vim /srv/gitlab-runner/config/config.toml
 ```
-Изменяем `volumes = ["/cache"]` на(заменить `PROJECT.NAME` на название проекта
+Изменяем `volumes = ["/cache"]` на название проекта `PROJECT__NAME`
 из файла с переменными окружения в директории [config](../config)):
 ```bash
 volumes = ["/var/run/docker.sock:/var/run/docker.sock", "/cache", "/var/log/PROJECT.NAME/:/var/log/clear-talk/"]

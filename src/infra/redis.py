@@ -19,6 +19,7 @@ class RedisManager:
     async def __aenter__(self) -> Self:
         logger.info("Connecting to Redis")
         self.redis = Redis(host=self._host, port=self._port, password=self._password)
+        logger.info("Successful connect to Redis")
         await self.redis.ping()
         return self
 

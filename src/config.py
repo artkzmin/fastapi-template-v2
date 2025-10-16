@@ -105,7 +105,7 @@ class Settings(BaseSettings):
     model_config = SettingsConfigDict(
         env_file=ENV_PATH,
         case_sensitive=False,
-        env_nested_delimiter=".",
+        env_nested_delimiter="__",
     )
 
 

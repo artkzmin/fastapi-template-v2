@@ -1,16 +1,20 @@
+x-common-args: &common-args
+  API__PORT: ${API__PORT}
+  PROJECT__NAME: ${PROJECT__NAME}
+
 services:
-  UNSET.PROJECT.NAME:
-    container_name: ${UNSET.PROJECT.NAME}
-    image: ${UNSET.PROJECT.NAME}-image:latest
+  backend:
+    container_name: ${PROJECT__NAME}-backend
+    image: ${PROJECT__NAME}-image:latest
     restart: unless-stopped
     networks:
-      - ${UNSET.PROJECT.NAME}-network
+      - ${PROJECT__NAME}-network
     volumes:
-      - /var/log/${UNSET.PROJECT.NAME}/:/app/logs/
+      - /var/log/${PROJECT__NAME}/:/app/logs/
 
 networks:
-  UNSET.PROJECT.NAME-network:
+  UNSET__PROJECT__NAME-network:
     external: True
 
 volumes:
-  UNSET.PROJECT.NAME-pgdata:
+  UNSET__PROJECT__NAME-pgdata:

@@ -9,7 +9,9 @@ revision:
 migrate:
 	uv run alembic upgrade head
 build:
-	docker compose -f docker/docker-compose.yml up --build -d
+	docker compose -f docker/docker-compose.yml \
+	--env-file=config/.env \
+	up --build -d
 coverage:
 	coverage run -m pytest
 	coverage report

@@ -14,4 +14,9 @@ COPY config/.env config/.env
 
 COPY src/ src/
 
-CMD ["make", "run"]
+COPY cli/ cli/
+
+COPY cli/run.sh cli/run.sh
+RUN chmod +x cli/run.sh
+
+CMD ["sh", "cli/run.sh"]

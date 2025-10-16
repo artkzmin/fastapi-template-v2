@@ -8,7 +8,7 @@ FILES=(
 )
 
 # Спрашиваем у пользователя старое название
-echo -e "Enter old PROJECT.NAME (e.g. UNSET.PROJECT.NAME):"
+echo -e "Enter old PROJECT__NAME (e.g. UNSET__PROJECT__NAME):"
 read -r OLD_PROJECT_NAME
 
 if [[ -z "$OLD_PROJECT_NAME" ]]; then
@@ -22,10 +22,10 @@ if [[ ! -f "config/.env" ]]; then
     exit 1
 fi
 
-NEW_PROJECT_NAME=$(grep -E '^PROJECT.NAME=' config/.env | cut -d '=' -f2-)
+NEW_PROJECT_NAME=$(grep -E '^PROJECT__NAME=' config/.env | cut -d '=' -f2-)
 
 if [[ -z "$NEW_PROJECT_NAME" ]]; then
-    echo "ERROR: PROJECT.NAME not set in config/.env"
+    echo "ERROR: PROJECT__NAME not set in config/.env"
     exit 1
 fi
 
