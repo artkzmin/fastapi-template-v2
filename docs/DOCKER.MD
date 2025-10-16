@@ -4,9 +4,3 @@
 ```bash
 docker system prune -a --volumes
 ```
-
-## Создание сети для Docker контейнеров
-```bash
-. config/.env
-docker network create ${PROJECT.NAME}-network
-```

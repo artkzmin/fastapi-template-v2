@@ -53,6 +53,7 @@ class Settings(BaseSettings):
         dir_path: Path
         max_log_files: int
 
+        @classmethod
         @field_validator("dir_path", mode="before")
         def resolve_dir_path(cls, v: str | Path) -> Path:
             return Path(v).resolve()
@@ -109,4 +110,4 @@ class Settings(BaseSettings):
     )
 
 
-settings = Settings()
+settings = Settings.model_validate({})

@@ -1,7 +1,7 @@
-# БД
-
+# База данных
 ## Основная БД
-Поднятие БД в Docker-контейнере:
+### Поднятие базы данных в Docker-контейнере
+
 ```bash
 . config/.env
 docker run -d \
@@ -16,11 +16,13 @@ docker run -d \
   postgres:15
 ```
 
-Пересоздание БД:
+### Пересоздание базы данных
+
 ```bash
 . config/.env
 docker rm -f "${PROJECT__NAME}-psql"
 docker volume rm "${PROJECT__NAME}-pgdata"
+
 docker run -d \
   --name "${PROJECT__NAME}-psql" \
   --restart unless-stopped \
@@ -32,9 +34,13 @@ docker run -d \
   -p ${DB__PORT}:5432 \
   postgres:15
 ```
+
+---
 
 ## Тестовая БД
-Поднятие БД в Docker-контейнере:
+
+### Поднятие базы данных в Docker-контейнере
+
 ```bash
 . config/.test.env
 docker run -d \
@@ -49,11 +55,13 @@ docker run -d \
   postgres:15
 ```
 
-Пересоздание БД:
+### Пересоздание базы данных
+
 ```bash
 . config/.test.env
 docker rm -f "${PROJECT__NAME}-psql"
 docker volume rm "${PROJECT__NAME}-pgdata"
+
 docker run -d \
   --name "${PROJECT__NAME}-psql" \
   --restart unless-stopped \
@@ -66,8 +74,11 @@ docker run -d \
   postgres:15
 ```
 
+---
+
 ## Redis
-Создание:
+### Поднятие контейнера
+
 ```bash
 . config/.env
 docker run -d \
@@ -79,10 +90,13 @@ docker run -d \
   redis:7 \
   redis-server --requirepass ${REDIS__PASSWORD}
 ```
-Пересоздание:
+
+### Пересоздание контейнера
+
 ```bash
 . config/.env
 docker rm -f redis-pass
+
 docker run -d \
   --name redis-pass \
   --restart unless-stopped \
