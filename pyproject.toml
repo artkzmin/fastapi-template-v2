@@ -1,7 +1,7 @@
 [project]
-name = "app"
+name = "UNSET__PROJECT__NAME"
 version = "0.1.0"
-description = "FastAPI Application Template"
+description = ""
 readme = "README.md"
 requires-python = "==3.11.9"
 dependencies = [
