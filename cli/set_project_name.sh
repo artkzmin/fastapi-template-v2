@@ -5,6 +5,7 @@ set -euo pipefail
 FILES=(
     "docker/docker-compose.yml"
     "docker/docker-compose-ci.yml"
+    "pyproject.toml"
 )
 
 # Спрашиваем у пользователя старое название
