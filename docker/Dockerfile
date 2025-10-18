@@ -16,7 +16,7 @@ COPY src/ src/
 
 COPY cli/ cli/
 
-COPY cli/run.sh cli/run.sh
-RUN chmod +x cli/run.sh
+COPY docker/run.sh docker/run.sh
+RUN chmod +x docker/run.sh
 
-CMD ["sh", "cli/run.sh"]
+CMD ["sh", "docker/run.sh"]
