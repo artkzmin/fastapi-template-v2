@@ -3,6 +3,13 @@
 ## Архитектура
 Архитектура проекта описана в [docs/ARCHITECTURE.md](docs/ARCHITECTURE.MD).
 
+## Creds
+Для запуска требуется файл с переменными окружения:
+```bash
+cp config/.env.dist config/.env
+cp config/.test.env.dist config/.test.env
+```
+
 ## Pre Commit
 На проект установлен Pre Commit для единого стиля (используются `mypy`, `ruff`, `black`).
 Для проверки и форматирования удобно пользоваться командой:
