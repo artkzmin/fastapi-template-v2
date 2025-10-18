@@ -23,3 +23,6 @@ cloc:
 set-project-name:
 	chmod +x cli/set_project_name.sh
 	cli/set_project_name.sh
+cp-env:
+	cp config/.env.dist config/.env
+	cp config/.test.env.dist config/.test.env

@@ -6,8 +6,7 @@
 ## Creds
 Для запуска требуется файл с переменными окружения:
 ```bash
-cp config/.env.dist config/.env
-cp config/.test.env.dist config/.test.env
+make cp-env
 ```
 
 ## Pre Commit
