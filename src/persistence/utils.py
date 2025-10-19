@@ -2,11 +2,28 @@ import importlib
 
 from typing import Any, Self
 
+from sqlalchemy import text
 from sqlalchemy.ext.asyncio import AsyncSession, async_sessionmaker
+
+from infra.db import engine
+from logger import logger_app
+
+logger = logger_app.getChild(__name__)
 
 
 def import_models() -> None:
     importlib.import_module("persistence.models")
+
+
+async def check_db() -> None:
+    try:
+        async with engine.connect() as conn:
+            await conn.execute(text("SELECT 1"))
+        logger.info("Database connection successful")
+
+    except Exception as e:
+        logger.error("Database connection failed:", e)
+        raise e
 
 
 class DBManager:

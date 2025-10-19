@@ -15,12 +15,12 @@ from infra.db import engine_null_pool, session_maker_null_pool
 from persistence.models.base import BaseModel
 from persistence.utils import import_models
 
-setup_app()
 import_models()
 
 
 @pytest.fixture(scope="session", autouse=True)
 async def check_test_mode() -> None:
+    await setup_app()
     assert settings.is_test
 
 
