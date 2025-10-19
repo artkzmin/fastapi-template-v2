@@ -5,6 +5,13 @@ from logging.config import dictConfig
 from config import settings
 
 
+class DefaultOtelFormatter(logging.Formatter):
+    def format(self, record: logging.LogRecord) -> str:
+        if not hasattr(record, "otelTraceID"):
+            record.otelTraceID = 0
+        return super().format(record)
+
+
 def setup_logging() -> None:
     settings.logs.dir_path.mkdir(parents=True, exist_ok=True)
 
@@ -14,10 +21,12 @@ def setup_logging() -> None:
             "disable_existing_loggers": False,
             "formatters": {
                 "default": {
+                    "class": "logger.DefaultOtelFormatter",
                     "format": "%(asctime)s - %(name)s - %(levelname)s - trace_id=%(otelTraceID)s - %(message)s",
                     "datefmt": "%Y-%m-%d %H:%M:%S",
                 },
                 "access": {
+                    "class": "logger.DefaultOtelFormatter",
                     "format": "%(asctime)s - %(name)s - %(levelname)s - trace_id=%(otelTraceID)s - %(message)s",
                     "datefmt": "%Y-%m-%d %H:%M:%S",
                 },
