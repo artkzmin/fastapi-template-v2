@@ -25,6 +25,7 @@ dependencies = [
     "pytest-asyncio==1.2.0",
     "ruff==0.14.1",
     "click==8.3.0",
+    "httpx[socks]==0.28.1",
 ]
 
 # --- Ruff
