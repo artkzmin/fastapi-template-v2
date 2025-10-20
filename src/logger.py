@@ -35,7 +35,7 @@ def setup_logging() -> None:
                 "console": {
                     "class": "logging.StreamHandler",
                     "formatter": "default",
-                    "level": "INFO",
+                    "level": settings.logs.level,
                 },
                 "file": {
                     "class": "logging.handlers.TimedRotatingFileHandler",
@@ -59,14 +59,14 @@ def setup_logging() -> None:
                 },
             },
             "root": {
-                "level": "INFO",
+                "level": settings.logs.level,
                 "handlers": ["console", "file"],
             },
             "loggers": {
                 "app": {
-                    "level": "INFO",
+                    "level": settings.logs.level,
                     "handlers": ["console", "file"],
-                    "propagate": False,
+                    "propagate": True,
                 },
                 "uvicorn": {
                     "level": "INFO",
@@ -84,6 +84,11 @@ def setup_logging() -> None:
                     "propagate": True,
                 },
                 "httpcore.http11": {
+                    "level": "INFO",
+                    "handlers": ["console", "file"],
+                    "propagate": False,
+                },
+                "httpcore.connection": {
                     "level": "INFO",
                     "handlers": ["console", "file"],
                     "propagate": False,

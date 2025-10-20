@@ -20,6 +20,11 @@ class SettingsModeEnum(StrEnum):
     PROD = "PROD"
 
 
+class LoggerLevelEnum(StrEnum):
+    INFO = "INFO"
+    DEBUG = "DEBUG"
+
+
 class SettingsServiceEnum(StrEnum):
     API_V1 = "API_V1"
     CLI = "CLI"
@@ -52,6 +57,7 @@ class Settings(BaseSettings):
     class LogsSettings(BaseModel):
         dir_path: Path
         max_log_files: int
+        level: LoggerLevelEnum
 
         @classmethod
         @field_validator("dir_path", mode="before")
