@@ -1,13 +1,13 @@
 PROJECT_VERSION := $(shell chmod +x cli/get_project_version.sh; cli/get_project_version.sh)
 
 run:
-	uv run python -m src.main
+	python -m src.main
 format:
-	uv run pre-commit run --all-files
+	pre-commit run --all-files
 revision:
-	uv run alembic revision --autogenerate -m "$(PROJECT_VERSION)"
+	alembic revision --autogenerate -m "$(PROJECT_VERSION)"
 migrate:
-	uv run alembic upgrade head
+	alembic upgrade head
 build:
 	docker network create ${PROJECT__NAME}-network
 	docker compose -f docker/docker-compose.yml \
