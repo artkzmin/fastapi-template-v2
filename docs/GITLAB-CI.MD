@@ -7,7 +7,7 @@ docker run -d --name gitlab-runner --restart always \
   --dns 8.8.8.8 --dns 8.8.4.4 \
   -v /srv/gitlab-runner/config:/etc/gitlab-runner \
   -v /var/run/docker.sock:/var/run/docker.sock \
-  gitlab/gitlab-runner:alpine-v17.3.1
+  gitlab/gitlab-runner:latest
 ```
 
 ## Регистрация GitLab Runner внутри Docker
@@ -16,7 +16,7 @@ docker run -d --name gitlab-runner --restart always \
 docker run --rm -it \
   --dns 8.8.8.8 --dns 8.8.4.4 \
   -v /srv/gitlab-runner/config:/etc/gitlab-runner \
-  gitlab/gitlab-runner:alpine-v17.3.1 register
+  gitlab/gitlab-runner:latest register
 ```
 
 * Выберите executor — `docker`.
